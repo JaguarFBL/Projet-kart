@@ -18,3 +18,5 @@ Ce fichier a pour but de mettre la documentation et les documents communs pour t
 PHP my Admin et MySQL sur rasberry :<br>
 
 https://medium.com/@gaudiondev/mysql-server-phpmyadmin-raspberry-pi-lamp-server-bcce4f88b34b
+Rasberry pi connect :<br>
+https://www.youtube.com/watch?v=vCOXkJyUhMU
