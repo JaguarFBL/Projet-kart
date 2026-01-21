@@ -6,26 +6,18 @@ Explication
 <br>
 
 Projet-kart/<br>
-|<br>
 ├─ Louan/<br>
-|  |<br>
 │  ├─ explication espace perso<br>
 ├─ Loevan/<br>
-|  |<br>
 │  ├─ explication espace perso<br>
 ├─ Mathys/<br>
-|  |<br>
 │  ├─ explication espace perso<br>
 ├─ Noah/<br>
-|  |<br>
 │  ├─ explication espace perso<br>
 ├─ Documents/<br>
-|  |<br>
 │  ├─ explication doc commun<br>
 ├─ projet-kart/<br>
-|  |<br>
 │  ├─ explication dossier source<br>
-|<br>
 ├─ explication du concept.md
 
 
