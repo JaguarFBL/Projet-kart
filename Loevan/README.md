@@ -18,3 +18,7 @@ vous pouvez faire ce que vous voulez c'est votre espace
 PHP my Admin et MySQL sur rasberry :<br>
 
 https://medium.com/@gaudiondev/mysql-server-phpmyadmin-raspberry-pi-lamp-server-bcce4f88b34b
+
+Connection rasberry à distance :<br>
+
+https://www.raspberrypi.com/documentation/services/connect.html
