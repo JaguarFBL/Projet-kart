@@ -20,8 +20,8 @@ Projet-kart/<br>
 │  ├─ explication dossier source<br>
 ├─ explication du concept.md
 
+## Louan : Chef
+## Loevan : Radio
+## Mathys : Modélisation
+## NOAH : Branchement
 
-## Loevan
-PHP my Admin et MySQL sur rasberry :<br>
-
-https://medium.com/@gaudiondev/mysql-server-phpmyadmin-raspberry-pi-lamp-server-bcce4f88b34b
