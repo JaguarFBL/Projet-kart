@@ -8,10 +8,15 @@ c'est un projet d'instrumentation d'un kart afin de récolter des données et de
 C'est le fichier du projet lui meme ne déposer que les fichiers fini et approuver
 <br>
 <br>
+## C'est un dossier que pour le projet <br>
+Code ESP32 :<br>
+- Température<br>
+- Radio<br>
+- Humidité<br>
+- Boucle de courant (Bibliotèque ?)<br>
+- Micro<br>
 <br>
 <br>
-<br>
-
 
 ## Lien
 
