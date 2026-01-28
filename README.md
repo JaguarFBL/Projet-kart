@@ -23,5 +23,5 @@ Projet-kart/<br>
 ## Louan : Chef
 ## Loevan : Radio
 ## Mathys : Modélisation
-## NOAH : Branchement
+## Noah : Branchement
 
