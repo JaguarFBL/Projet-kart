@@ -7,8 +7,8 @@ c'est un projet d'instrumentation d'un kart afin de récolter des données et de
 
 Ce fichier a pour but de mettre la documentation et les documents communs pour toute l'equipe
 <br>
-<br> Le programme du capteur de température est fait. ✔
-<br>
+<br>Le programme du capteur de température est fait. ✔
+<br>Le montage de la boucle de courant est en train d'être étudié. 🤔
 <br>
 <br>
 
