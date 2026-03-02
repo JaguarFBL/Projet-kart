@@ -10,7 +10,7 @@ Ce fichier a pour but de mettre la documentation et les documents communs pour t
 <br>Le programme du capteur de température est fait. ✔
 <br>Le montage de la boucle de courant est en train d'être étudié. 🤔
 <br>
-<br>
+<br>Site WEB en cours de fabrication.
 <br>
 <br>
 <br>
@@ -19,7 +19,7 @@ Ce fichier a pour but de mettre la documentation et les documents communs pour t
 <br>
 <br>
 
-## Lien
+## Liens pratique
 
 
 Hass 50-S ( boucle de courant ):<br>
