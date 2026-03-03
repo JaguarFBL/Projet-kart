@@ -5,10 +5,25 @@ c'est un projet d'instrumentation d'un kart afin de récolter des données et de
 
 ## C'est un dossier que pour Noah <br>
 
-vous pouvez faire ce que vous voulez c'est votre espace
+Vous pouvez faire ce que vous voulez c'est votre espace
 <br>
 <br>
+Code de la boucle de courant : 
 <br>
+int HassPin = A0;
+int HassState = 0;
+
+void setup() {
+  pinMode(HassPin, INPUT); // Set A0 as input
+  Serial.begin(9600);      // Initialize serial communication
+}
+
+void loop() {
+  HassState = digitalRead(HassPin); // Read the state of A0
+  Serial.println(HassState);        // Print the state
+  delay(1000);                      // Optional: delay for readability
+}
+
 <br>
 <br>
 
