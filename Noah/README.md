@@ -8,7 +8,7 @@ c'est un projet d'instrumentation d'un kart afin de récolter des données et de
 Vous pouvez faire ce que vous voulez c'est votre espace
 <br>
 <br>
-Code de la boucle de courant : 
+<strong>Code de la boucle de courant : <strong/><br>
 <br>
 int HassPin = A0; <br>
 int HassState = 0; <br>
