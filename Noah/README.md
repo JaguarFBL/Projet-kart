@@ -1,6 +1,6 @@
 # Projet-kart-Dossier-Noah<br>
 
-c'est un projet d'instrumentation d'un kart afin de récolter des données et de les afficher sur un site web
+C'est un projet d'instrumentation d'un kart afin de récolter des données et de les afficher sur un site web
 <br>
 
 ## C'est un dossier que pour Noah <br>
@@ -8,7 +8,7 @@ c'est un projet d'instrumentation d'un kart afin de récolter des données et de
 Vous pouvez faire ce que vous voulez c'est votre espace
 <br>
 <br>
-<strong>Code de la boucle de courant : <strong/> <br>
+Code de la boucle de courant : <br>
 <br>
 int HassPin = A0; <br>
 int HassState = 0; <br>
