@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Conditions de pratique — Kart</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #f5f4f0;
+    --white: #ffffff;
+    --text: #1a1a1a;
+    --muted: #9a9890;
+    --border: #e8e6e0;
+    --green: #2d9e6b;
+    --yellow: #c98a1a;
+    --red: #d94f3d;
+    --accent: #1a1a1a;
+  }
+
+  html, body {
+    width: 100%; height: 100%;
+    background: var(--bg);
+    font-family: 'DM Sans', sans-serif;
+    color: var(--text);
+    overflow: hidden;
+  }
+
+  body {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── TOP BAR ── */
+  .topbar {
+    height: 56px;
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    padding: 0 36px;
+    gap: 32px;
+    flex-shrink: 0;
+  }
+
+  .page-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    margin-right: 8px;
+  }
+
+  .sep { width: 1px; height: 18px; background: var(--border); }
+
+  /* TABS */
+  .tabs {
+    display: flex;
+    gap: 4px;
+  }
+
+  .tab {
+    padding: 6px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.15s;
+    border: none;
+    background: none;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .tab:hover { background: var(--bg); color: var(--text); }
+
+  .tab.active {
+    background: var(--text);
+    color: var(--white);
+    font-weight: 500;
+  }
+
+  .topbar-right {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .live {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--green);
+  }
+
+  .live::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--green);
+    border-radius: 50%;
+    animation: pulse 2s ease infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  .clock {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  /* ── CONTENT ── */
+  .content {
+    flex: 1;
+    display: none;
+    overflow: hidden;
+  }
+
+  .content.active { display: flex; }
+
+  /* ── PAGE: ACCUEIL ── */
+  #page-accueil {
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 12px;
+    color: var(--muted);
+  }
+
+  .accueil-icon { font-size: 40px; opacity: 0.3; }
+  .accueil-text { font-size: 13px; letter-spacing: 0.06em; opacity: 0.5; }
+
+  /* ── PAGE: DÉTAILS DES TOURS ── */
+  #page-tours {
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 12px;
+    color: var(--muted);
+  }
+
+  /* ── PAGE: CONDITIONS ── */
+  #page-conditions {
+    display: none;
+    flex-direction: row;
+  }
+
+  #page-conditions.active { display: flex; }
+
+  /* LEFT PANEL */
+  .left-panel {
+    width: 50%;
+    height: 100%;
+    background: var(--bg);
+    border-right: 1px solid var(--border);
+    padding: 28px 32px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    gap: 14px;
+  }
+
+  .panel-title {
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    color: var(--text);
+  }
+
+  /* RIGHT PANEL */
+  .right-panel {
+    flex: 1;
+    height: 100%;
+    padding: 28px 32px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    gap: 14px;
+  }
+
+  .right-panel .panel-title { margin-bottom: 0; }
+
+  /* TOP ROW: 2 big metric cards */
+  .batt-top-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .batt-card {
+    background: var(--white);
+    border-radius: 14px;
+    padding: 20px 22px;
+  }
+
+  .batt-card-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+
+  .batt-big {
+    font-size: 48px;
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+
+  .batt-big-unit {
+    font-size: 18px;
+    font-weight: 300;
+    color: var(--muted);
+  }
+
+  .batt-ref-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid var(--border);
+  }
+
+  .batt-ref-label { font-size: 11px; color: var(--muted); }
+
+  .batt-ref-val {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--text);
+  }
+
+  .delta {
+    font-size: 10px;
+    font-weight: 500;
+    padding: 3px 8px;
+    border-radius: 100px;
+    display: inline-block;
+    margin-top: 6px;
+  }
+
+  .delta.ok   { background: #edf8f3; color: var(--green); }
+  .delta.warn { background: #fdf6e8; color: var(--yellow); }
+  .delta.bad  { background: #fdf0ee; color: var(--red); }
+
+  /* CHARGE BAR CARD */
+  .charge-card {
+    background: var(--white);
+    border-radius: 14px;
+    padding: 20px 22px;
+  }
+
+  .charge-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+  }
+
+  .charge-title {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .charge-pct {
+    font-size: 26px;
+    font-weight: 300;
+    letter-spacing: -0.02em;
+  }
+
+  .charge-pct span { font-size: 13px; color: var(--muted); }
+
+  .charge-bar-track {
+    width: 100%;
+    height: 10px;
+    background: var(--border);
+    border-radius: 100px;
+    overflow: hidden;
+    margin-bottom: 8px;
+  }
+
+  .charge-bar-fill {
+    height: 100%;
+    border-radius: 100px;
+    transition: width 1.2s ease;
+  }
+
+  .charge-bar-fill.high   { background: var(--green); }
+  .charge-bar-fill.medium { background: var(--yellow); }
+  .charge-bar-fill.low    { background: var(--red); }
+
+  .charge-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  /* MINI STATS ROW */
+  .mini-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+
+  .mini-card {
+    background: var(--white);
+    border-radius: 14px;
+    padding: 18px 20px;
+  }
+
+  .mini-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+
+  .mini-value {
+    font-size: 28px;
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+
+  .mini-unit { font-size: 13px; color: var(--muted); font-weight: 300; }
+
+  .mini-sub {
+    font-size: 10px;
+    color: var(--muted);
+    margin-top: 5px;
+  }
+
+  /* SPARKLINE CARD */
+  .history-card {
+    background: var(--white);
+    border-radius: 14px;
+    padding: 20px 22px;
+  }
+
+  .history-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+  }
+
+  .history-title {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .history-legend {
+    display: flex;
+    gap: 14px;
+    font-size: 10px;
+    color: var(--muted);
+  }
+
+  .legend-dot {
+    display: inline-block;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    margin-right: 4px;
+    vertical-align: middle;
+  }
+
+  canvas { display: block; }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <span class="page-title">Conditions de pratique</span>
+  <div class="sep"></div>
+  <div class="tabs">
+    <button class="tab" onclick="showTab('accueil')">Accueil</button>
+    <button class="tab" onclick="showTab('tours')">Détails des tours</button>
+    <button class="tab active" onclick="showTab('conditions')">Conditions de pratique</button>
+  </div>
+  <div class="topbar-right">
+    <div class="live">Temps réel</div>
+    <div class="clock" id="clock">--:--:--</div>
+  </div>
+</div>
+
+<!-- PAGE: ACCUEIL -->
+<div class="content" id="page-accueil">
+  <div class="accueil-icon">🏁</div>
+  <div class="accueil-text">Page d'accueil</div>
+</div>
+
+<!-- PAGE: TOURS -->
+<div class="content" id="page-tours">
+  <div class="accueil-icon">⏱️</div>
+  <div class="accueil-text">Détails des tours</div>
+</div>
+
+<!-- PAGE: CONDITIONS -->
+<div class="content active" id="page-conditions">
+
+  <!-- GAUCHE : conditions extérieures -->
+  <div class="left-panel">
+    <div class="panel-title">Conditions extérieures</div>
+
+    <!-- Temp + Humidité -->
+    <div class="batt-top-row">
+
+      <div class="batt-card">
+        <div class="batt-card-label">Température</div>
+        <div>
+          <span class="batt-big">7.4</span>
+          <span class="batt-big-unit">°C</span>
+        </div>
+        <span class="delta warn">Piste froide</span>
+        <div class="batt-ref-row">
+          <span class="batt-ref-label">Max aujourd'hui</span>
+          <span class="batt-ref-val">17.1 °C</span>
+        </div>
+      </div>
+
+      <div class="batt-card">
+        <div class="batt-card-label">Humidité</div>
+        <div>
+          <span class="batt-big">62</span>
+          <span class="batt-big-unit">%</span>
+        </div>
+        <span class="delta warn">Modérée</span>
+        <div class="batt-ref-row">
+          <span class="batt-ref-label">Idéale</span>
+          <span class="batt-ref-val">&lt; 50 %</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Météo -->
+    <div class="charge-card">
+      <div class="charge-header">
+        <div class="charge-title">Météo</div>
+        <div style="font-size: 32px; line-height:1;">☀️</div>
+      </div>
+      <div style="font-size: 26px; font-weight: 300; letter-spacing: -0.02em; margin-bottom: 8px;">Ensoleillé</div>
+      <div class="charge-bar-track">
+        <div class="charge-bar-fill high" style="width: 100%"></div>
+      </div>
+      <div class="charge-meta">
+        <span>0% précipitation</span>
+        <span class="delta ok" style="margin-top:0;">Piste sèche</span>
+      </div>
+    </div>
+
+    <!-- Mini conditions -->
+    <div class="mini-stats">
+
+      <div class="mini-card">
+        <div class="mini-label">Adhérence</div>
+        <div class="mini-value" style="font-size:22px;">Slicks</div>
+        <div class="mini-sub">Pneus recommandés</div>
+        <span class="delta warn">Préchauffe requise</span>
+      </div>
+
+      <div class="mini-card">
+        <div class="mini-label">Vent</div>
+        <div class="mini-value">8<span class="mini-unit"> km/h</span></div>
+        <div class="mini-sub">Direction : NO</div>
+        <span class="delta ok">Faible</span>
+      </div>
+
+      <div class="mini-card">
+        <div class="mini-label">Visibilité</div>
+        <div class="mini-value">10<span class="mini-unit"> km</span></div>
+        <div class="mini-sub">Dégagé</div>
+        <span class="delta ok">Excellente</span>
+      </div>
+
+    </div>
+
+    <!-- Prévisions -->
+    <div class="history-card">
+      <div class="history-header">
+        <div class="history-title">Prévisions — 2 heures</div>
+      </div>
+      <div style="display:flex; gap:10px;" id="forecastRow"></div>
+    </div>
+
+  </div>
+
+  <!-- DROITE : batterie kart -->
+  <div class="right-panel">
+    <div class="panel-title">Données batterie</div>
+
+    <!-- Température + Charge côte à côte -->
+    <div class="batt-top-row">
+
+      <div class="batt-card">
+        <div class="batt-card-label">Température batterie</div>
+        <div>
+          <span class="batt-big">28.4</span>
+          <span class="batt-big-unit">°C</span>
+        </div>
+        <span class="delta warn">+3.4° vs référence</span>
+        <div class="batt-ref-row">
+          <span class="batt-ref-label">Valeur fournie</span>
+          <span class="batt-ref-val">25.0 °C</span>
+        </div>
+      </div>
+
+      <div class="batt-card">
+        <div class="batt-card-label">Niveau de charge</div>
+        <div>
+          <span class="batt-big">78</span>
+          <span class="batt-big-unit">%</span>
+        </div>
+        <span class="delta ok">−2% vs référence</span>
+        <div class="batt-ref-row">
+          <span class="batt-ref-label">Valeur fournie</span>
+          <span class="batt-ref-val">80 %</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Barre de charge -->
+    <div class="charge-card">
+      <div class="charge-header">
+        <div class="charge-title">Charge en temps réel</div>
+        <div class="charge-pct">78<span>%</span></div>
+      </div>
+      <div class="charge-bar-track">
+        <div class="charge-bar-fill high" style="width: 78%"></div>
+      </div>
+      <div class="charge-meta">
+        <span>0%</span>
+        <span>Référence : 80%</span>
+        <span>100%</span>
+      </div>
+    </div>
+
+    <!-- Mini stats -->
+    <div class="mini-stats">
+
+      <div class="mini-card">
+        <div class="mini-label">Tension</div>
+        <div class="mini-value">48.6<span class="mini-unit"> V</span></div>
+        <div class="mini-sub">Nominale : 48.0 V</div>
+        <span class="delta ok">+0.6 V</span>
+      </div>
+
+      <div class="mini-card">
+        <div class="mini-label">Courant</div>
+        <div class="mini-value">12.3<span class="mini-unit"> A</span></div>
+        <div class="mini-sub">Max autorisé : 20 A</div>
+        <span class="delta ok">Normal</span>
+      </div>
+
+      <div class="mini-card">
+        <div class="mini-label">Autonomie est.</div>
+        <div class="mini-value">38<span class="mini-unit"> min</span></div>
+        <div class="mini-sub">À consommation actuelle</div>
+        <span class="delta ok">Suffisant</span>
+      </div>
+
+    </div>
+
+    <!-- Historique sparkline -->
+    <div class="history-card">
+      <div class="history-header">
+        <div class="history-title">Historique — 10 dernières minutes</div>
+        <div class="history-legend">
+          <span><span class="legend-dot" style="background:#2d9e6b"></span>Charge (%)</span>
+          <span><span class="legend-dot" style="background:#c98a1a"></span>Température (°C)</span>
+        </div>
+      </div>
+      <canvas id="sparkline" height="70"></canvas>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  function tick() {
+    const pad = n => String(n).padStart(2, '0');
+    const now = new Date();
+    document.getElementById('clock').textContent =
+      `${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
+  }
+  setInterval(tick, 1000); tick();
+
+  function showTab(name) {
+    document.querySelectorAll('.tab').forEach((t, i) => {
+      const names = ['accueil', 'tours', 'conditions'];
+      t.classList.toggle('active', names[i] === name);
+    });
+    document.querySelectorAll('.content').forEach(el => {
+      el.classList.remove('active');
+    });
+    document.getElementById('page-' + name).classList.add('active');
+  }
+
+  // Sparkline
+  const canvas = document.getElementById('sparkline');
+  const ctx = canvas.getContext('2d');
+
+  function drawSparkline() {
+    const W = canvas.parentElement.clientWidth - 44;
+    canvas.width = W;
+
+    const chargeData = [82, 81, 81, 80, 80, 79, 79, 78, 78, 78];
+    const tempData   = [24, 25, 25, 26, 27, 27, 28, 28, 28, 28];
+    const H = 70, pad = 4, pts = chargeData.length;
+    const xStep = (W - pad * 2) / (pts - 1);
+
+    function toX(i) { return pad + i * xStep; }
+    function toYcharge(v) { return H - pad - ((v - 70) / 20) * (H - pad * 2); }
+    function toYtemp(v)   { return H - pad - ((v - 20) / 15) * (H - pad * 2); }
+
+    ctx.clearRect(0, 0, W, H);
+
+    // Grid lines
+    ctx.strokeStyle = '#e8e6e0';
+    ctx.lineWidth = 1;
+    [0.25, 0.5, 0.75].forEach(r => {
+      const y = pad + r * (H - pad * 2);
+      ctx.beginPath(); ctx.moveTo(pad, y); ctx.lineTo(W - pad, y); ctx.stroke();
+    });
+
+    // Charge fill
+    ctx.beginPath();
+    ctx.moveTo(toX(0), toYcharge(chargeData[0]));
+    chargeData.forEach((v, i) => ctx.lineTo(toX(i), toYcharge(v)));
+    ctx.lineTo(toX(pts - 1), H); ctx.lineTo(toX(0), H); ctx.closePath();
+    ctx.fillStyle = 'rgba(45,158,107,0.08)'; ctx.fill();
+
+    // Charge line
+    ctx.beginPath();
+    chargeData.forEach((v, i) => i === 0 ? ctx.moveTo(toX(i), toYcharge(v)) : ctx.lineTo(toX(i), toYcharge(v)));
+    ctx.strokeStyle = '#2d9e6b'; ctx.lineWidth = 2; ctx.lineJoin = 'round'; ctx.stroke();
+
+    // Temp line
+    ctx.beginPath();
+    tempData.forEach((v, i) => i === 0 ? ctx.moveTo(toX(i), toYtemp(v)) : ctx.lineTo(toX(i), toYtemp(v)));
+    ctx.strokeStyle = '#c98a1a'; ctx.lineWidth = 2; ctx.setLineDash([4, 3]); ctx.stroke();
+    ctx.setLineDash([]);
+
+    // Dots at last point
+    [[toX(pts-1), toYcharge(chargeData[pts-1]), '#2d9e6b'],
+     [toX(pts-1), toYtemp(tempData[pts-1]),   '#c98a1a']].forEach(([x, y, c]) => {
+      ctx.beginPath(); ctx.arc(x, y, 4, 0, Math.PI * 2);
+      ctx.fillStyle = c; ctx.fill();
+      ctx.strokeStyle = '#fff'; ctx.lineWidth = 1.5; ctx.stroke();
+    });
+  }
+
+  drawSparkline();
+  window.addEventListener('resize', drawSparkline);
+
+  // Forecast toutes les 30min sur 2h
+  const now = new Date();
+  const forecastSlots = [
+    { offset: 0,   icon: '☀️',  temp: '7.4°', rain: '0%'  },
+    { offset: 30,  icon: '☀️',  temp: '8.1°', rain: '0%'  },
+    { offset: 60,  icon: '🌤️', temp: '9.0°', rain: '5%'  },
+    { offset: 90,  icon: '🌤️', temp: '9.8°', rain: '5%'  },
+    { offset: 120, icon: '⛅',  temp: '10.5°', rain: '10%' },
+  ];
+
+  forecastSlots.forEach(f => {
+    const t = new Date(now.getTime() + f.offset * 60000);
+    const hh = String(t.getHours()).padStart(2, '0');
+    const mm = String(t.getMinutes()).padStart(2, '0');
+    const label = f.offset === 0 ? 'Maintenant' : `${hh}:${mm}`;
+    document.getElementById('forecastRow').innerHTML += `
+      <div style="flex:1; background:var(--bg); border-radius:10px; padding:10px 6px; text-align:center; display:flex; flex-direction:column; gap:4px;">
+        <div style="font-size:10px; font-weight:500; letter-spacing:0.06em; color:var(--muted);">${label}</div>
+        <div style="font-size:20px;">${f.icon}</div>
+        <div style="font-family:'DM Mono',monospace; font-size:13px;">${f.temp}</div>
+        <div style="font-size:10px; color:var(--muted);">${f.rain}</div>
+      </div>`;
+  });
+</script>
+</body>
+</html>
