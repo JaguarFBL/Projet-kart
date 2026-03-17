@@ -10,6 +10,8 @@ Ce fichier a pour but de mettre la documentation et les documents communs pour t
 <br>Le programme du capteur de température est fait. ✔
 <br>Montage de la boucle de courant : ON ARRIVE PAAAAAAAAS😣
 <br>
+Faire les tests du capteur ultrason
+<br>
 <br>Site WEB : Claude is working now...💻🥱
 <br>
 <br>
