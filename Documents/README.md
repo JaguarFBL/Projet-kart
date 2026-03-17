@@ -10,7 +10,7 @@ Ce fichier a pour but de mettre la documentation et les documents communs pour t
 <br>Le programme du capteur de température est fait. ✔
 <br>Montage de la boucle de courant : ON ARRIVE PAAAAAAAAS😣
 <br>
-<br>Site WEB en cours de fabrication.
+<br>Site WEB : Claude is working now...💻🥱
 <br>
 <br>
 <br>
