@@ -1,0 +1,17 @@
+#include <WiFi.h>
+#include <HTTPClient.h>
+ 
+void setup() {
+  Serial.begin(115200);
+  WiFi.begin("poteau", "");
+  while (WiFi.status() != WL_CONNECTED) delay(500);
+  Serial.println("Connecté!");
+}
+ 
+void loop() {
+  HTTPClient http;
+  http.begin("http://10.42.0.1:5000");
+  http.POST("Hello!");
+  http.end();
+  delay(5000);
+}
