@@ -20,7 +20,7 @@ Projet-kart/<br>
 │  ├─ explication dossier source<br>
 ├─ explication du concept.md
 
-## Louan : Chef
+## Louan : test
 ## Loevan : Radio
 ## Mathys : Modélisation
 ## Noah : Branchement<br>
