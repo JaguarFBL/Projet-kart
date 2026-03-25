@@ -12,7 +12,7 @@ Ce fichier a pour but de mettre la documentation et les documents communs pour t
 <br>
 Faire les tests du capteur ultrason
 <br>
-<br>Site WEB : Claude is working now...💻🥱
+<br>Site WEB : Claude has finished his task. Your Website is done !😎
 <br>
 <br>
 <br>
