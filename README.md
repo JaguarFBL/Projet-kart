@@ -26,5 +26,5 @@ Projet-kart/<br>
 ## Noah : Branchement<br>
 
 lien du site : https://jaguarfbl.github.io/Projet-kart/<br>
-site rasberry : http://http://10.6.10.65/
+site rasberry : http://10.6.10.65/
 lien MySQL : http://10.6.10.65/phpmyadmin
