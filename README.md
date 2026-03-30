@@ -20,9 +20,9 @@ Projet-kart/<br>
 │  ├─ explication dossier source<br>
 ├─ explication du concept.md
 
-## Louan : test
+## Louan : test chef
 ## Loevan : Radio
-## Mathys : Modélisation
+## Mathys : Modélisation non
 ## Noah : Branchement<br>
 
 lien du site : https://jaguarfbl.github.io/Projet-kart/<br>
