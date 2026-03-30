@@ -1,0 +1,17 @@
+float Courant;
+
+void setup() {
+  Serial.begin(9600);
+  Serial.println("=== Coucou les amis ===");
+}
+
+void loop() {
+  Serial.println("=== Démarage");
+
+  Courant = analogRead(A3);
+
+  Serial.print("Courant = ");
+  Serial.print(Courant);
+  Serial.print("mA");
+  delay(2000);
+}
