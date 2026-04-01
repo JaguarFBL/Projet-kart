@@ -25,7 +25,7 @@ Projet-kart/<br>
 ## Mathys : Modélisation non
 ## Noah : Branchement<br>
 <br>
-      -A FAIRE-<br>
+     ## -A FAIRE-<br>
 -les valeurs des tours doivent être prises depuis la BBD<br>
 -changer les graphiques<br>
 -la BBD doit actualiser les meilleurs tours des pilotes<br>
