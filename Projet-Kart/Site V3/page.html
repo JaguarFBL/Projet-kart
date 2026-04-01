@@ -1,0 +1,106 @@
+// ============================================================
+// 1. TOUT récupérer
+// ============================================================
+$stmt = $mysqlClient->prepare('SELECT * FROM capteur');
+$stmt->execute();
+$tout = $stmt->fetchAll();
+
+// ============================================================
+// 2. La DERNIÈRE mesure uniquement
+// ============================================================
+$stmt = $mysqlClient->prepare('SELECT * FROM capteur ORDER BY date DESC LIMIT 1');
+$stmt->execute();
+$derniere = $stmt->fetch();
+
+echo "Dernière mesure : " . $derniere['date'] . "<br>";
+echo "Batterie : " . $derniere['pourcentagebatterie'] . "%<br>";
+
+// ============================================================
+// 3. Les 10 dernières mesures
+// ============================================================
+$stmt = $mysqlClient->prepare('SELECT * FROM capteur ORDER BY date DESC LIMIT 10');
+$stmt->execute();
+$dixDernieres = $stmt->fetchAll();
+
+// ============================================================
+// 4. Seulement les colonnes BATTERIE
+// ============================================================
+$stmt = $mysqlClient->prepare('
+    SELECT date, tensionbatterie, pourcentagebatterie, intensitebatterie 
+    FROM capteur 
+    ORDER BY date DESC
+');
+$stmt->execute();
+$batterie = $stmt->fetchAll();
+
+// ============================================================
+// 5. Seulement les colonnes PISTE
+// ============================================================
+$stmt = $mysqlClient->prepare('
+    SELECT date, temperaturepiste, humiditepiste 
+    FROM capteur 
+    ORDER BY date DESC
+');
+$stmt->execute();
+$piste = $stmt->fetchAll();
+
+// ============================================================
+// 6. Filtrer par ID précis
+// ============================================================
+$id_recherche = 142;
+$stmt = $mysqlClient->prepare('SELECT * FROM capteur WHERE ID = :id');
+$stmt->execute([':id' => $id_recherche]);
+$uneCapteur = $stmt->fetch();
+
+// ============================================================
+// 7. Alerte batterie faible (< seuil)
+// ============================================================
+$seuil = 20;
+$stmt = $mysqlClient->prepare('
+    SELECT * FROM capteur 
+    WHERE pourcentagebatterie < :seuil 
+    ORDER BY date DESC
+');
+$stmt->execute([':seuil' => $seuil]);
+$alertes = $stmt->fetchAll();
+
+// ============================================================
+// 8. Mesures entre deux dates
+// ============================================================
+$dateDebut = '2026-03-18 13:28:00';
+$dateFin   = '2026-03-18 13:28:40';
+$stmt = $mysqlClient->prepare('
+    SELECT * FROM capteur 
+    WHERE date BETWEEN :debut AND :fin 
+    ORDER BY date ASC
+');
+$stmt->execute([':debut' => $dateDebut, ':fin' => $dateFin]);
+$intervalle = $stmt->fetchAll();
+
+// ============================================================
+// 9. Statistiques (MIN, MAX, AVG)
+// ============================================================
+$stmt = $mysqlClient->prepare('
+    SELECT 
+        MIN(temperaturepiste)      AS temp_min,
+        MAX(temperaturepiste)      AS temp_max,
+        AVG(temperaturepiste)      AS temp_moy,
+        MIN(pourcentagebatterie)   AS bat_min,
+        MAX(pourcentagebatterie)   AS bat_max,
+        AVG(pourcentagebatterie)   AS bat_moy
+    FROM capteur
+');
+$stmt->execute();
+$stats = $stmt->fetch();
+
+echo "Temp min : " . $stats['temp_min'] . "°C | max : " . $stats['temp_max'] . "°C<br>";
+echo "Batterie min : " . $stats['bat_min'] . "% | max : " . $stats['bat_max'] . "%<br>";
+
+// ============================================================
+// 10. Compter le nombre total de mesures
+// ============================================================
+$stmt = $mysqlClient->prepare('SELECT COUNT(*) AS total FROM capteur');
+$stmt->execute();
+$compte = $stmt->fetch();
+
+echo "Total mesures : " . $compte['total'] . "<br>";

@@ -1,0 +1,769 @@
+<?php
+include 'test.php';
+$stmt = $mysqlClient->prepare('SELECT * FROM capteur ORDER BY date DESC LIMIT 1');
+$stmt->execute();
+$derniere = $stmt->fetch();
+?>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teamboard — Kart</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="tabs">
+    <button class="tab active" onclick="showTab('accueil')">Accueil</button>
+    <button class="tab" onclick="showTab('session')">Session</button>
+    <button class="tab" onclick="showTab('conditions')">Conditions de pratique</button>
+    <button class="tab" onclick="showTab('appexterne')">App externe</button>
+  </div>
+  <div class="topbar-right">
+    <div class="live">Temps réel</div>
+    <div class="clock" id="clock">--:--:--</div>
+  </div>
+</div>
+
+<!-- PAGE: ACCUEIL -->
+<div class="content active" id="page-accueil">
+
+  <!-- GAUCHE : date/heure + température ambiante -->
+  <div class="left-panel">
+
+    <!-- Date & heure -->
+    <div class="accueil-datetime-card" style="padding:12px 16px;">
+      <div class="batt-card-label">Heure actuelle</div>
+      <div class="accueil-time-big" id="accueil-clock" style="font-size:36px;">--:--:--</div>
+      <div class="accueil-date-line" id="accueil-date">—</div>
+    </div>
+
+    <!-- Température ambiante -->
+    <div class="batt-top-row">
+      <div class="batt-card" style="padding:10px 14px;">
+        <div class="batt-card-label">Température ambiante</div>
+        <div>
+          <span class="batt-big" id="ambiant-temp" style="font-size:26px;">7.4</span>
+          <span class="batt-big-unit">°C</span>
+        </div>
+        <span class="delta warn" id="ambiant-badge">Piste froide</span>
+        <div class="batt-ref-row" style="margin-top:5px; padding-top:5px;">
+          <span class="batt-ref-label">Ressentie</span>
+          <span class="batt-ref-val" id="ambiant-feels">5.1 °C</span>
+        </div>
+      </div>
+
+      <div class="batt-card" style="padding:10px 14px;">
+        <div class="batt-card-label">Humidité</div>
+        <div>
+          <span class="batt-big" style="font-size:26px;">62</span>
+          <span class="batt-big-unit">%</span>
+        </div>
+        <span class="delta warn">Modérée</span>
+        <div class="batt-ref-row" style="margin-top:5px; padding-top:5px;">
+          <span class="batt-ref-label">Météo</span>
+          <span class="batt-ref-val">☀️ Ensoleillé</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Prévisions mini -->
+    <div class="history-card" style="padding:10px 14px;">
+      <div class="history-header" style="margin-bottom:6px;">
+        <div class="history-title">Prévisions — 2 heures</div>
+      </div>
+      <div style="display:flex; gap:6px;" id="accueil-forecastRow"></div>
+    </div>
+
+    <!-- Sessions par pilote -->
+    <div class="history-card" style="display:flex; flex-direction:column; padding:10px 14px; height:155px; flex-shrink:0;">
+      <div class="history-header" style="margin-bottom:4px;">
+        <div class="history-title">Tours par pilote</div>
+        <div style="font-size:10px; color:var(--muted);">Total cumulé · Toutes sessions</div>
+      </div>
+      <canvas id="sessionsChart" style="flex:1; width:100%;"></canvas>
+    </div>
+
+    <!-- GP du week-end -->
+    <div class="batt-card" style="flex-shrink:0;">
+      <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:12px;">
+        <div>
+          <div class="batt-card-label" style="margin-bottom:5px;">GP du week-end</div>
+          <div style="font-size:18px; font-weight:500; letter-spacing:-0.01em; line-height:1.2;">Grand Prix de Bretagne</div>
+          <div style="font-size:11px; color:var(--muted); margin-top:4px;">Circuit de Lohéac · Manche Ouest</div>
+        </div>
+        <div style="font-size:28px; flex-shrink:0;">🏁</div>
+      </div>
+      <div style="border-top:1px solid var(--border); margin-top:10px; padding-top:10px; display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px;">
+        <div>
+          <div style="font-size:9px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); margin-bottom:2px;">Date</div>
+          <div style="font-size:12px; font-weight:500;">Sam. 29 mars</div>
+        </div>
+        <div>
+          <div style="font-size:9px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); margin-bottom:2px;">Pilotes</div>
+          <div style="font-size:12px; font-weight:500;">12 inscrits</div>
+        </div>
+        <div>
+          <div style="font-size:9px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); margin-bottom:2px;">Statut</div>
+          <span class="delta ok" style="margin-top:0;">Confirmé</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- DROITE : meilleurs temps de tous les temps -->
+  <div class="right-panel">
+    <div class="panel-title">Meilleurs temps — Tous les temps</div>
+
+    <!-- Top 3 podium -->
+    <div style="background:var(--white); border-radius:12px; padding:14px 16px 0 16px; flex-shrink:0; display:flex; flex-direction:column;">
+      <div style="display:flex; align-items:flex-end; justify-content:center; gap:6px; height:100px;">
+
+        <!-- 2ème -->
+        <div style="flex:1; display:flex; flex-direction:column; align-items:center; gap:0;">
+          <div style="font-size:11px; font-weight:500; color:var(--text); margin-bottom:3px;">Antoine D.</div>
+          <div style="font-family:'DM Mono',monospace; font-size:13px; color:var(--muted); margin-bottom:5px;">52.1 s</div>
+          <div style="width:100%; height:52px; background:#e8e8e8; border-radius:6px 6px 0 0; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:2px;">
+            <span style="font-size:18px;">🥈</span>
+            <span style="font-size:10px; font-weight:600; color:#888; letter-spacing:0.05em;">2</span>
+          </div>
+        </div>
+
+        <!-- 1er -->
+        <div style="flex:1; display:flex; flex-direction:column; align-items:center; gap:0;">
+          <div style="font-size:11px; font-weight:500; color:var(--text); margin-bottom:3px;">Marc L.</div>
+          <div style="font-family:'DM Mono',monospace; font-size:13px; color:var(--green); font-weight:500; margin-bottom:5px;">51.3 s</div>
+          <div style="width:100%; height:76px; background:var(--green); border-radius:6px 6px 0 0; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:2px;">
+            <span style="font-size:18px;">🏆</span>
+            <span style="font-size:10px; font-weight:700; color:rgba(255,255,255,0.9); letter-spacing:0.05em;">1</span>
+          </div>
+        </div>
+
+        <!-- 3ème -->
+        <div style="flex:1; display:flex; flex-direction:column; align-items:center; gap:0;">
+          <div style="font-size:11px; font-weight:500; color:var(--text); margin-bottom:3px;">Sophie R.</div>
+          <div style="font-family:'DM Mono',monospace; font-size:13px; color:var(--muted); margin-bottom:5px;">52.8 s</div>
+          <div style="width:100%; height:38px; background:#d4b896; border-radius:6px 6px 0 0; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:2px;">
+            <span style="font-size:14px;">🥉</span>
+            <span style="font-size:10px; font-weight:600; color:rgba(255,255,255,0.85); letter-spacing:0.05em;">3</span>
+          </div>
+        </div>
+
+      </div>
+      <div style="height:3px; background:var(--border); border-radius:0 0 8px 8px; margin:0 -16px;"></div>
+    </div>
+
+    <!-- Tableau complet top 10 -->
+    <div class="history-card" style="flex:1; display:flex; flex-direction:column;">
+      <div class="history-header">
+        <div class="history-title">Classement complet — Top 10</div>
+        <div style="font-size:10px; color:var(--muted);">Tous pilotes · Toutes conditions</div>
+      </div>
+      <table class="records-table" style="flex:1;">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Pilote</th>
+            <th>Temps</th>
+            <th>Écart</th>
+            <th>Date</th>
+            <th>Conditions</th>
+          </tr>
+        </thead>
+        <tbody id="recordsBody"></tbody>
+      </table>
+    </div>
+
+  </div>
+</div>
+
+<!-- PAGE: SESSION -->
+<div class="content" id="page-session">
+
+  <!-- GAUCHE : énergie & pneus -->
+  <div class="left-panel">
+
+    <!-- Boutons session -->
+    <div style="display:flex; align-items:center; gap:16px; flex-shrink:0;">
+      <div style="display:flex; gap:8px; align-items:center;">
+        <button onclick="startSession()" id="btnStart" style="padding:8px 28px; background:var(--green); color:#fff; border:none; border-radius:10px; font-family:'DM Sans',sans-serif; font-size:12px; font-weight:500; letter-spacing:0.04em; cursor:pointer; white-space:nowrap;">▶ Démarrer</button>
+        <button onclick="stopSession()" id="btnStop" style="padding:8px 28px; background:var(--red); color:#fff; border:none; border-radius:10px; font-family:'DM Sans',sans-serif; font-size:12px; font-weight:500; letter-spacing:0.04em; cursor:pointer; white-space:nowrap; display:none;">■ Arrêter</button>
+        <button onclick="resetSession()" id="btnReset" style="padding:8px 20px; background:var(--bg); color:var(--text); border:1px solid var(--border); border-radius:10px; font-family:'DM Sans',sans-serif; font-size:12px; font-weight:500; letter-spacing:0.04em; cursor:pointer; white-space:nowrap; display:none;">↺ Reset à zéro</button>
+        <div id="sessionBadge" style="display:none; align-items:center; gap:6px; background:#edf8f3; border-radius:100px; padding:5px 12px;">
+          <span style="width:6px; height:6px; background:var(--green); border-radius:50%; display:inline-block; animation:pulse 2s ease infinite; flex-shrink:0;"></span>
+          <span style="font-size:12px; font-weight:500; color:var(--green); white-space:nowrap;">Session en cours</span>
+        </div>
+      </div>
+      <div style="display:flex; align-items:center; gap:10px;">
+        <span style="font-size:10px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted);">Durée session</span>
+        <span id="sessionTimer" style="font-family:'DM Mono',monospace; font-size:22px; font-weight:400; color:var(--text); letter-spacing:0.05em;">00:00:00</span>
+      </div>
+    </div>
+
+    <div class="panel-title">Énergie & Équipement</div>
+
+    <!-- Consommation moyenne + totale -->
+    <div class="batt-top-row">
+      <div class="batt-card">
+        <div class="batt-card-label">Consommation moy. / tour</div>
+        <div><span class="batt-big">3.2</span><span class="batt-big-unit"> Wh</span></div>
+        <span class="delta ok">Stable</span>
+      </div>
+      <div class="batt-card">
+        <div class="batt-card-label">Consommation totale est.</div>
+        <div><span class="batt-big">38</span><span class="batt-big-unit"> Wh</span></div>
+        <span class="delta ok">Fin de session</span>
+      </div>
+    </div>
+
+    <!-- Niveau de charge + autonomie -->
+    <div class="charge-card">
+      <div class="charge-header">
+        <div class="charge-title">Niveau de charge</div>
+        <div class="charge-pct" id="session-charge-pct"><?php echo "Batterie : " . $derniere['pourcentagebatterie'] . "%<br>"; ?></div>
+      </div>
+      <div class="charge-bar-track">
+        <div class="charge-bar-fill high" id="session-charge-fill" style="width:<?php echo $derniere['pourcentagebatterie']; ?>%;"></div>
+      </div>
+      <div class="charge-meta">
+        <span>0%</span>
+        <span>Autonomie restante : ~38 min</span>
+        <span>100%</span>
+      </div>
+    </div>
+
+    <!-- Mini stats -->
+    <div class="mini-stats">
+      <div class="mini-card">
+        <div class="mini-label">Type de pneus</div>
+        <div class="mini-value" style="font-size:22px;">Slicks</div>
+        <div class="mini-sub">Montés en début de session</div>
+        <span class="delta warn">Préchauffe requise</span>
+      </div>
+      <div class="mini-card">
+        <div class="mini-label">Autonomie restante</div>
+        <div class="mini-value">38<span class="mini-unit"> min</span></div>
+        <div class="mini-sub">À rythme actuel</div>
+        <span class="delta ok">Suffisant</span>
+      </div>
+      <div class="mini-card">
+        <div class="mini-label">Tours effectués</div>
+        <div class="mini-value">15<span class="mini-unit"> tours</span></div>
+        <div class="mini-sub">Session en cours</div>
+        <span class="delta ok">En course</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- DROITE : temps par tour -->
+  <div class="right-panel">
+    <div class="panel-title">Temps par tour</div>
+
+    <!-- Meilleur / pire -->
+    <div class="batt-top-row">
+      <div class="batt-card">
+        <div class="batt-card-label">🏆 Meilleur tour</div>
+        <div><span class="batt-big" style="color:var(--green);">52.4</span><span class="batt-big-unit"> s</span></div>
+        <span class="delta ok">Tour 8</span>
+      </div>
+      <div class="batt-card">
+        <div class="batt-card-label">⚠️ Pire tour</div>
+        <div><span class="batt-big" style="color:var(--red);">58.1</span><span class="batt-big-unit"> s</span></div>
+        <span class="delta bad">+5.7 s vs meilleur</span>
+      </div>
+    </div>
+
+    <!-- Tableau des tours -->
+    <div class="history-card" style="display:flex; flex-direction:column;">
+      <div class="history-header">
+        <div class="history-title">Détail des tours</div>
+        <div style="font-size:10px; color:var(--muted); display:flex; gap:16px;">
+          <span><span class="legend-dot" style="background:var(--green); display:inline-block; width:8px; height:8px; border-radius:50%; margin-right:4px;"></span>Meilleur</span>
+          <span><span class="legend-dot" style="background:var(--red); display:inline-block; width:8px; height:8px; border-radius:50%; margin-right:4px;"></span>Pire</span>
+        </div>
+      </div>
+      <div>
+        <table style="width:100%; border-collapse:collapse;" id="lapTable">
+          <thead>
+            <tr style="border-bottom:1px solid var(--border);">
+              <th style="text-align:left; font-size:10px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); padding:0 0 10px 0;">Tour</th>
+              <th style="text-align:right; font-size:10px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); padding:0 0 10px 0;">Temps</th>
+              <th style="text-align:right; font-size:10px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); padding:0 0 10px 0;">Écart meilleur</th>
+              <th style="text-align:right; font-size:10px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); padding:0 0 10px 0;">Conso.</th>
+            </tr>
+          </thead>
+          <tbody id="lapBody"></tbody>
+        </table>
+      </div>
+      <div style="border-top:1px solid var(--border); margin-top:8px; padding-top:10px; display:flex; align-items:center; justify-content:space-between;">
+        <span style="font-size:10px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted);">Temps moyen</span>
+        <span style="font-family:'DM Mono',monospace; font-size:15px; color:var(--text);" id="avgLap">— s</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- PAGE: APP EXTERNE -->
+<div class="content" id="page-appexterne" style="align-items:center; justify-content:center;">
+
+  <div onclick="window.open('https://www.windy.com/fr/-Radar-m%C3%A9t%C3%A9o-radar?radar,48.179,-3.032,7', '_blank')" style="text-decoration:none; display:flex; flex-direction:column; gap:0; border-radius:14px; overflow:hidden; box-shadow:0 2px 12px rgba(0,0,0,0.08); border:1px solid var(--border); transition:transform 0.15s, box-shadow 0.15s; cursor:pointer;"
+     onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(0,0,0,0.12)'"
+     onmouseout="this.style.transform='none'; this.style.boxShadow='0 2px 12px rgba(0,0,0,0.08)'">
+
+    <div style="width:480px; height:280px; background:linear-gradient(135deg, #1a2a4a 0%, #0d3b6e 40%, #1a6b8a 70%, #2d9e9e 100%); position:relative; overflow:hidden; display:flex; align-items:center; justify-content:center;">
+      <!-- Grille stylisée -->
+      <svg width="480" height="280" style="position:absolute; top:0; left:0; opacity:0.15;" xmlns="http://www.w3.org/2000/svg">
+        <defs><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" stroke-width="0.5"/></pattern></defs>
+        <rect width="480" height="280" fill="url(#grid)"/>
+      </svg>
+      <!-- Cercles radar -->
+      <svg width="480" height="280" style="position:absolute; top:0; left:0; opacity:0.2;" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="240" cy="140" r="60" fill="none" stroke="white" stroke-width="1"/>
+        <circle cx="240" cy="140" r="110" fill="none" stroke="white" stroke-width="1"/>
+        <circle cx="240" cy="140" r="160" fill="none" stroke="white" stroke-width="1"/>
+        <line x1="240" y1="0" x2="240" y2="280" stroke="white" stroke-width="0.5"/>
+        <line x1="0" y1="140" x2="480" y2="140" stroke="white" stroke-width="0.5"/>
+      </svg>
+      <!-- Logo et texte -->
+      <div style="display:flex; flex-direction:column; align-items:center; gap:10px; z-index:1;">
+        <div style="font-size:36px;">🌬️</div>
+        <div style="font-size:22px; font-weight:700; color:white; letter-spacing:-0.01em;">Windy</div>
+        <div style="font-size:12px; color:rgba(255,255,255,0.7); letter-spacing:0.04em;">RADAR MÉTÉO · BRETAGNE</div>
+      </div>
+    </div>
+
+    <!-- Footer de la card -->
+    <div style="background:var(--white); padding:14px 20px; display:flex; align-items:center; justify-content:space-between;">
+      <div>
+        <div style="font-size:13px; font-weight:500; color:var(--text);">Radar météo — Windy.com</div>
+        <div style="font-size:11px; color:var(--muted); margin-top:2px;">Centré sur la Bretagne · zoom 7</div>
+      </div>
+      <div style="display:flex; align-items:center; gap:5px; font-size:12px; font-weight:500; color:var(--green);">
+        Ouvrir <span style="font-size:14px;">↗</span>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- PAGE: CONDITIONS -->
+<div class="content" id="page-conditions">
+
+  <!-- GAUCHE : conditions extérieures -->
+  <div class="left-panel">
+    <div class="panel-title">Conditions extérieures</div>
+
+    <!-- Temp + Humidité -->
+    <div class="batt-top-row">
+
+      <div class="batt-card">
+        <div class="batt-card-label">Température</div>
+        <div>
+          <span class="batt-big" id="temp-piste-val">7.4</span>
+          <span class="batt-big-unit">°C</span>
+        </div>
+        <span class="delta warn">Piste froide</span>
+        <div class="batt-ref-row">
+          <span class="batt-ref-label">Max aujourd'hui</span>
+          <span class="batt-ref-val">17.1 °C</span>
+        </div>
+      </div>
+
+      <div class="batt-card">
+        <div class="batt-card-label">Humidité</div>
+        <div>
+          <span class="batt-big" id="humid-val">62</span>
+          <span class="batt-big-unit">%</span>
+        </div>
+        <span class="delta warn">Modérée</span>
+        <div class="batt-ref-row">
+          <span class="batt-ref-label">Idéale</span>
+          <span class="batt-ref-val">&lt; 50 %</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Météo -->
+    <div class="charge-card">
+      <div class="charge-header">
+        <div class="charge-title">Météo</div>
+        <div style="font-size: 24px; line-height:1;">☀️</div>
+      </div>
+      <div style="font-size: 20px; font-weight: 300; letter-spacing: -0.02em; margin-bottom: 6px;">Ensoleillé</div>
+      <div class="charge-bar-track">
+        <div class="charge-bar-fill high" style="width: 100%"></div>
+      </div>
+      <div class="charge-meta">
+        <span>0% précipitation</span>
+        <span class="delta ok" style="margin-top:0;">Piste sèche</span>
+      </div>
+    </div>
+
+    <!-- Mini conditions -->
+    <div class="mini-stats">
+
+      <div class="mini-card">
+        <div class="mini-label">Adhérence</div>
+        <div class="mini-value" style="font-size:22px;">Slicks</div>
+        <div class="mini-sub">Pneus recommandés</div>
+        <span class="delta warn">Préchauffe requise</span>
+      </div>
+
+      <div class="mini-card">
+        <div class="mini-label">Vent</div>
+        <div class="mini-value">8<span class="mini-unit"> km/h</span></div>
+        <div class="mini-sub">Direction : NO</div>
+        <span class="delta ok">Faible</span>
+      </div>
+
+      <div class="mini-card">
+        <div class="mini-label">Visibilité</div>
+        <div class="mini-value">10<span class="mini-unit"> km</span></div>
+        <div class="mini-sub">Dégagé</div>
+        <span class="delta ok">Excellente</span>
+      </div>
+
+    </div>
+
+    <!-- Prévisions -->
+    <div class="history-card">
+      <div class="history-header">
+        <div class="history-title">Prévisions — 2 heures</div>
+      </div>
+      <div style="display:flex; gap:10px;" id="forecastRow"></div>
+    </div>
+
+  </div>
+
+  <!-- DROITE : batterie kart -->
+  <div class="right-panel">
+    <div class="panel-title">Données batterie</div>
+
+    <!-- Température + Charge côte à côte -->
+    <div class="batt-top-row">
+
+      <div class="batt-card">
+        <div class="batt-card-label">Température batterie</div>
+        <div>
+          <span class="batt-big" id="batt-temp-val">28.4</span>
+          <span class="batt-big-unit">°C</span>
+        </div>
+        <span class="delta warn">+3.4° vs référence</span>
+        <div class="batt-ref-row">
+          <span class="batt-ref-label">Valeur fournie</span>
+          <span class="batt-ref-val">25.0 °C</span>
+        </div>
+      </div>
+
+      <div class="batt-card">
+        <div class="batt-card-label">Niveau de charge</div>
+        <div>
+          <span class="batt-big" id="batt-charge-val">78</span>
+          <span class="batt-big-unit">%</span>
+        </div>
+        <span class="delta ok">−2% vs référence</span>
+        <div class="batt-ref-row">
+          <span class="batt-ref-label">Valeur fournie</span>
+          <span class="batt-ref-val">80 %</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Barre de charge -->
+    <div class="charge-card">
+      <div class="charge-header">
+        <div class="charge-title">Charge en temps réel</div>
+        <div class="charge-pct" id="cond-charge-pct"><?php echo $derniere['pourcentagebatterie']; ?><span>%</span></div>
+      </div>
+      <div class="charge-bar-track">
+        <div class="charge-bar-fill high" id="cond-charge-fill" style="width:<?php echo $derniere['pourcentagebatterie']; ?>%;"></div>
+      </div>
+      <div class="charge-meta">
+        <span>0%</span>
+        <span>Référence : 80%</span>
+        <span>100%</span>
+      </div>
+    </div>
+
+    <!-- Mini stats -->
+    <div class="mini-stats">
+
+      <div class="mini-card">
+        <div class="mini-label">Tension</div>
+        <div class="mini-value"><span id="batt-volt-val">48.6</span><span class="mini-unit"> V</span></div>
+        <div class="mini-sub">Nominale : 48.0 V</div>
+        <span class="delta ok">+0.6 V</span>
+      </div>
+
+      <div class="mini-card">
+        <div class="mini-label">Courant</div>
+        <div class="mini-value"><span id="batt-amp-val">12.3</span><span class="mini-unit"> A</span></div>
+        <div class="mini-sub">Max autorisé : 20 A</div>
+        <span class="delta ok">Normal</span>
+      </div>
+
+      <div class="mini-card">
+        <div class="mini-label">Autonomie est.</div>
+        <div class="mini-value">38<span class="mini-unit"> min</span></div>
+        <div class="mini-sub">À consommation actuelle</div>
+        <span class="delta ok">Suffisant</span>
+      </div>
+
+    </div>
+
+    <!-- Historique sparkline -->
+    <div class="history-card" style="flex:1; display:flex; flex-direction:column;">
+      <div class="history-header">
+        <div class="history-title">Historique — 10 dernières minutes</div>
+        <div class="history-legend">
+          <span><span class="legend-dot" style="background:#2d9e6b"></span>Charge (%)</span>
+          <span><span class="legend-dot" style="background:#c98a1a"></span>Température (°C)</span>
+        </div>
+      </div>
+      <canvas id="sparkline" style="flex:1; width:100%;"></canvas>
+    </div>
+
+  </div>
+</div>
+
+<!-- ================================================
+     MODALE — Saisie du nom du pilote
+     ================================================ -->
+<div id="modalPilote" style="
+  display:none;
+  position:fixed; inset:0; z-index:1000;
+  background:rgba(0,0,0,0.45);
+  backdrop-filter:blur(4px);
+  align-items:center; justify-content:center;
+">
+  <div style="
+    background:var(--white);
+    border-radius:16px;
+    padding:32px 28px 24px;
+    width:340px;
+    box-shadow:0 16px 48px rgba(0,0,0,0.18);
+    display:flex; flex-direction:column; gap:20px;
+    animation:modalIn .2s ease;
+  ">
+    <!-- En-tête -->
+    <div style="display:flex; align-items:center; gap:12px;">
+      <div style="font-size:28px; line-height:1;">🏎️</div>
+      <div>
+        <div style="font-size:15px; font-weight:500; color:var(--text); letter-spacing:-0.01em;">Démarrer une session</div>
+        <div style="font-size:11px; color:var(--muted); margin-top:2px;">Identifiez le pilote avant de lancer</div>
+      </div>
+    </div>
+
+    <!-- Champ nom -->
+    <div style="display:flex; flex-direction:column; gap:6px;">
+      <label for="inputNomPilote" style="font-size:10px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted);">Nom du pilote</label>
+      <input
+        id="inputNomPilote"
+        type="text"
+        placeholder="ex. Marc L."
+        autocomplete="off"
+        style="
+          padding:10px 12px;
+          border:1px solid var(--border);
+          border-radius:10px;
+          font-family:'DM Sans',sans-serif;
+          font-size:13px;
+          color:var(--text);
+          background:var(--bg);
+          outline:none;
+          transition:border-color .15s;
+        "
+        oninput="document.getElementById('modalError').style.display='none';"
+        onfocus="this.style.borderColor='var(--green)'"
+        onblur="this.style.borderColor='var(--border)'"
+      />
+      <div id="modalError" style="display:none; font-size:11px; color:var(--red); margin-top:2px;">⚠ Veuillez saisir un nom de pilote.</div>
+    </div>
+
+    <!-- Boutons -->
+    <div style="display:flex; gap:8px; justify-content:flex-end;">
+      <button
+        onclick="fermerModalePilote()"
+        style="
+          padding:9px 20px;
+          background:var(--bg);
+          color:var(--text);
+          border:1px solid var(--border);
+          border-radius:10px;
+          font-family:'DM Sans',sans-serif;
+          font-size:12px; font-weight:500;
+          cursor:pointer;
+        "
+      >Annuler</button>
+      <button
+        onclick="confirmerDemarrage()"
+        style="
+          padding:9px 24px;
+          background:var(--green);
+          color:#fff;
+          border:none;
+          border-radius:10px;
+          font-family:'DM Sans',sans-serif;
+          font-size:12px; font-weight:500;
+          cursor:pointer;
+          letter-spacing:0.03em;
+        "
+      >▶ Lancer</button>
+    </div>
+  </div>
+</div>
+
+<style>
+@keyframes modalIn {
+  from { opacity:0; transform:scale(.96) translateY(8px); }
+  to   { opacity:1; transform:scale(1)   translateY(0); }
+}
+</style>
+
+<!-- JS externe — un seul fichier, zéro doublon -->
+<script src="script.js"></script>
+
+<script>
+/* =====================================================
+   Gestion de la session pilote (modale + PHP)
+   ===================================================== */
+
+// --- Affiche la modale au lieu de démarrer directement ---
+const _startSessionOriginal = window.startSession;
+window.startSession = function () {
+  ouvrirModalePilote();
+};
+
+function ouvrirModalePilote() {
+  const modal = document.getElementById('modalPilote');
+  modal.style.display = 'flex';
+  setTimeout(() => document.getElementById('inputNomPilote').focus(), 50);
+
+  // Fermeture en cliquant en dehors
+  modal.onclick = function (e) {
+    if (e.target === modal) fermerModalePilote();
+  };
+}
+
+function fermerModalePilote() {
+  document.getElementById('modalPilote').style.display = 'none';
+  document.getElementById('inputNomPilote').value = '';
+  document.getElementById('modalError').style.display = 'none';
+}
+
+// Touche Entrée pour valider
+document.getElementById('inputNomPilote').addEventListener('keydown', function (e) {
+  if (e.key === 'Enter') confirmerDemarrage();
+  if (e.key === 'Escape') fermerModalePilote();
+});
+
+async function confirmerDemarrage() {
+  const nom = document.getElementById('inputNomPilote').value.trim();
+
+  if (!nom) {
+    document.getElementById('modalError').style.display = 'block';
+    document.getElementById('inputNomPilote').focus();
+    return;
+  }
+
+  // Envoie le nom au PHP pour enregistrement en session
+  const fd = new FormData();
+  fd.append('action', 'demarrer');
+  fd.append('nom', nom);
+
+  try {
+    const res  = await fetch('session_pilote.php', { method: 'POST', body: fd });
+    const data = await res.json();
+
+    if (data.success) {
+      fermerModalePilote();
+      afficherPiloteActif(data.pilote);
+
+      // Déclenche la logique existante de démarrage (chrono, badge, etc.)
+      if (typeof _startSessionOriginal === 'function') {
+        _startSessionOriginal();
+      } else {
+        // Fallback : manipulation directe des boutons si script.js expose la fonction différemment
+        document.getElementById('btnStart')?.style && (document.getElementById('btnStart').style.display = 'none');
+        document.getElementById('btnStop').style.display  = '';
+        document.getElementById('btnReset').style.display = '';
+        document.getElementById('sessionBadge').style.display = 'flex';
+      }
+    } else {
+      document.getElementById('modalError').textContent = data.message || 'Erreur serveur.';
+      document.getElementById('modalError').style.display = 'block';
+    }
+  } catch (err) {
+    console.error('Erreur session_pilote.php :', err);
+    document.getElementById('modalError').textContent = 'Impossible de contacter le serveur.';
+    document.getElementById('modalError').style.display = 'block';
+  }
+}
+
+// --- Arrêt de session : vide la session PHP ---
+const _stopSessionOriginal = window.stopSession;
+window.stopSession = async function () {
+  const fd = new FormData();
+  fd.append('action', 'arreter');
+
+  try {
+    await fetch('session_pilote.php', { method: 'POST', body: fd });
+  } catch (e) {
+    console.warn('Impossible de terminer la session côté serveur :', e);
+  }
+
+  masquerPiloteActif();
+
+  if (typeof _stopSessionOriginal === 'function') _stopSessionOriginal();
+};
+
+// --- Bandeau pilote actif ---
+function afficherPiloteActif(nom) {
+  let badge = document.getElementById('piloteActifBadge');
+  if (!badge) {
+    badge = document.createElement('div');
+    badge.id = 'piloteActifBadge';
+    badge.style.cssText = `
+      display:flex; align-items:center; gap:8px;
+      background:#edf8f3; border-radius:100px;
+      padding:5px 14px; flex-shrink:0;
+    `;
+    // Insère juste après le badge "Session en cours"
+    const ref = document.getElementById('sessionBadge');
+    if (ref?.parentNode) ref.parentNode.insertBefore(badge, ref.nextSibling);
+  }
+  badge.innerHTML = `
+    <span style="font-size:14px;">🏎️</span>
+    <span style="font-size:12px; font-weight:500; color:var(--green);">${nom}</span>
+  `;
+  badge.style.display = 'flex';
+}
+
+function masquerPiloteActif() {
+  const badge = document.getElementById('piloteActifBadge');
+  if (badge) badge.style.display = 'none';
+}
+
+// --- Restauration au chargement si session PHP déjà active ---
+(async function restaurerSession() {
+  const fd = new FormData();
+  fd.append('action', 'statut');
+  try {
+    const res  = await fetch('session_pilote.php', { method: 'POST', body: fd });
+    const data = await res.json();
+    if (data.active) afficherPiloteActif(data.pilote);
+  } catch (e) { /* silencieux */ }
+})();
+</script>
+</body>
+</html>
