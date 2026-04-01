@@ -25,7 +25,7 @@ Projet-kart/<br>
 ## Mathys : Modélisation non
 ## Noah : Branchement<br>
 <br>
-<span style="color:red">--A faire--
+<span style="color:red"--A FAIRE--->
 <br>
 -les valeurs des tours doivent être prises depuis la BBD<br>
 -changer les graphiques<br>
