@@ -274,7 +274,7 @@ function stopSession() {
   document.getElementById('btnStop').style.display   = 'none';
   document.getElementById('btnStart').style.display  = 'block';
   document.getElementById('btnStart').textContent    = '▶ Reprendre';
-  document.getElementById('btnStart').style.background = '#3a8fd4';
+  document.getElementById('btnStart').style.background = '#FFFE00';
   document.getElementById('btnStart').onclick        = resumeSession;
   document.getElementById('btnReset').style.display  = 'block';
   document.getElementById('sessionBadge').style.display = 'none';
