@@ -1,7 +1,7 @@
 <?php
-$host = '127.0.0.1';
+$host = '';
 $db   = 'kart';
-$user = 'poteau';
+$user = '';
 $pass = 'TON_MOT_DE_PASSE';
 
 try {
