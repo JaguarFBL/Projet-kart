@@ -25,10 +25,10 @@ Projet-kart/<br>
 ## Mathys : Modélisation non
 ## Noah : Branchement<br>
 <br>
-      -A FAIRE-
--les valeurs des tours doivent être prises depuis la BBD
--changer les graphiques
--la BBD doit actualiser les meilleurs tours des pilotes
+      -A FAIRE-<br>
+-les valeurs des tours doivent être prises depuis la BBD<br>
+-changer les graphiques<br>
+-la BBD doit actualiser les meilleurs tours des pilotes<br>
 
 lien du site : https://jaguarfbl.github.io/Projet-kart/<br>
 site rasberry : http://10.6.10.65/
