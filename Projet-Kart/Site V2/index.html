@@ -192,8 +192,8 @@ $derniere = $stmt->fetch();
     <div style="display:flex; align-items:center; gap:16px; flex-shrink:0;">
       <div style="display:flex; gap:8px; align-items:center;">
         <button onclick="startSession()" id="btnStart" style="padding:8px 28px; background:var(--green); color:#fff; border:none; border-radius:10px; font-family:'DM Sans',sans-serif; font-size:12px; font-weight:500; letter-spacing:0.04em; cursor:pointer; white-space:nowrap;">▶ Démarrer</button>
-        <button onclick="stopSession()" id="btnStop" style="padding:8px 28px; background:var(--red); color:#fff; border:none; border-radius:10px; font-family:'DM Sans',sans-serif; font-size:12px; font-weight:500; letter-spacing:0.04em; cursor:pointer; white-space:nowrap; display:none;">■ Arrêter</button>
-        <button onclick="resetSession()" id="btnReset" style="padding:8px 20px; background:var(--bg); color:var(--text); border:1px solid var(--border); border-radius:10px; font-family:'DM Sans',sans-serif; font-size:12px; font-weight:500; letter-spacing:0.04em; cursor:pointer; white-space:nowrap; display:none;">↺ Reset à zéro</button>
+        <button onclick="window.stopSession()" id="btnStop" style="padding:8px 28px; background:var(--red); color:#fff; border:none; border-radius:10px; font-family:'DM Sans',sans-serif; font-size:12px; font-weight:500; letter-spacing:0.04em; cursor:pointer; white-space:nowrap; display:none;">■ Arrêter</button>
+        <button onclick="window.resetSession()" id="btnReset" style="padding:8px 20px; background:var(--bg); color:var(--text); border:1px solid var(--border); border-radius:10px; font-family:'DM Sans',sans-serif; font-size:12px; font-weight:500; letter-spacing:0.04em; cursor:pointer; white-space:nowrap; display:none;">↺ Reset à zéro</button>
         <div id="sessionBadge" style="display:none; align-items:center; gap:6px; background:#edf8f3; border-radius:100px; padding:5px 12px;">
           <span style="width:6px; height:6px; background:var(--green); border-radius:50%; display:inline-block; animation:pulse 2s ease infinite; flex-shrink:0;"></span>
           <span style="font-size:12px; font-weight:500; color:var(--green); white-space:nowrap;">Session en cours</span>
@@ -725,6 +725,20 @@ window.stopSession = async function () {
   masquerPiloteActif();
 
   if (typeof _stopSessionOriginal === 'function') _stopSessionOriginal();
+};
+
+// --- Reset session : vide aussi la BDD ---
+const _resetSessionOriginal = window.resetSession;
+window.resetSession = async function () {
+  const fd = new FormData();
+  fd.append('action', 'arreter');
+  try {
+    await fetch('session_pilote.php', { method: 'POST', body: fd });
+  } catch (e) {
+    console.warn('Impossible de reset la session côté serveur :', e);
+  }
+  masquerPiloteActif();
+  if (typeof _resetSessionOriginal === 'function') _resetSessionOriginal();
 };
 
 // --- Bandeau pilote actif ---
