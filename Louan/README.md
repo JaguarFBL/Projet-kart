@@ -15,6 +15,6 @@ vous pouvez faire ce que vous voulez c'est votre espace
 
 ## Lien
 
-PHP my Admin et MySQL sur rasberry :<br>
+PHP my Admin et MySQL sur rasberry : <br>
 
 https://medium.com/@gaudiondev/mysql-server-phpmyadmin-raspberry-pi-lamp-server-bcce4f88b34b
