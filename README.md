@@ -1,6 +1,11 @@
 # Projet-kart
+<br>
 
-![GitHub stats](https://github-readme-stats.vercel.app/api?username=JaguarFBL&show_icons=true&theme=radical)
+![GitHub last commit](https://img.shields.io/github/last-commit/JaguarFBL/Projet-kart)
+![GitHub stars](https://img.shields.io/github/stars/JaguarFBL/Projet-kart)
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
+![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)
+<br>
 
 c'est un projet d'instrumentation d'un kart afin de récolter des données et de les afficher sur un site web
 
@@ -32,12 +37,6 @@ Projet-kart/<br>
 ## Loevan : Radio
 ## Mathys : Modélisation non
 ## Noah : Branchement<br>
-<br>
-
-![GitHub last commit](https://img.shields.io/github/last-commit/JaguarFBL/Projet-kart)
-![GitHub stars](https://img.shields.io/github/stars/JaguarFBL/Projet-kart)
-![License](https://img.shields.io/badge/license-MIT-blue.svg)
-![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)
 <br>
 --A FAIRE--
 <br>
