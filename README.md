@@ -40,6 +40,7 @@ lien MySQL : http://10.6.10.65/phpmyadmin <br>
 API Météo : https://open-meteo.com/en/docs/meteofrance-api?location_mode=csv_coordinates&bounding_box=-90,-180,90,180&forecast_days=1&hourly=temperature_2m,relative_humidity_2m,rain
 
 <br>
+
 Illustrations / screens :
 ------------
 
