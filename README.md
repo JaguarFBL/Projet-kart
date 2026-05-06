@@ -1,6 +1,4 @@
 # Projet-kart
-<br>
-
 ![GitHub last commit](https://img.shields.io/github/last-commit/JaguarFBL/Projet-kart)
 ![GitHub stars](https://img.shields.io/github/stars/JaguarFBL/Projet-kart)
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
