@@ -9,14 +9,6 @@ c'est un projet d'instrumentation d'un kart afin de récolter des données et de
 
 Explication
 -----------
-## 📌 Table des matières
-- [Description](#description)
-- [Installation](#installation)
-- [Utilisation](#utilisation)
-- [Contribution](#contribution)
-- [Licence](#licence)
-<br>
-
 | Niveau 1 | Niveau 2 | Niveau 3 |
 | --- | --- | --- |
 | 📁 Projet-kart/ |  |  |
