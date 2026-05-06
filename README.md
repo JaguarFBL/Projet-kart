@@ -1,5 +1,5 @@
 # Projet-kart
-![Logo](./Illustrations/Design sans titre.png)
+![Logo](./illustration/Designsanstitre.png)
 ![GitHub last commit](https://img.shields.io/github/last-commit/JaguarFBL/Projet-kart)
 ![GitHub stars](https://img.shields.io/github/stars/JaguarFBL/Projet-kart)
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
