@@ -1,6 +1,6 @@
 # Projet-kart
 
-![GitHub stats](https://github-readme-stats.vercel.app/api?username=LouanRoussel&show_icons=true&theme=radical)
+![GitHub stats](https://github-readme-stats.vercel.app/api?username=JaguarFBL&show_icons=true&theme=radical)
 
 c'est un projet d'instrumentation d'un kart afin de récolter des données et de les afficher sur un site web
 
