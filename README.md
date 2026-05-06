@@ -4,7 +4,6 @@
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)
 <br>
-
 c'est un projet d'instrumentation d'un kart afin de récolter des données et de les afficher sur un site web
 
 Explication
