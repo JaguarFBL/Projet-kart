@@ -4,9 +4,7 @@
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)
 <br>
-## 📊 Statistiques
-![Langages utilisés](https://github-readme-stats.vercel.app/api/top-langs/?username=LouanRoussel&repo=Projet-Kart&theme=dark)
-![Contributions](https://github-readme-stats.vercel.app/api?username=LouanRoussel&repo=Projet-Kart&theme=dark)
+
 C'est un projet d'instrumentation d'un kart afin de récolter des données et de les afficher sur un site web
 
 Explication
