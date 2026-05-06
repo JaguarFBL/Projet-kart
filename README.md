@@ -6,8 +6,15 @@
 ![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)
 
 <br>
+Système de télémétrie et d'instrumentation pour kart de compétition.
 
-C'est un projet d'instrumentation d'un kart afin de récolter des données et de les afficher sur un site web
+Un projet complet de collecte et visualisation de données en temps réel pour un kart équipé de capteurs. Les mesures (température, humidité, batterie) sont transmises via un Raspberry Pi et affichées sur un dashboard web interactif (HTML/CSS/JavaScript/PHP).
+
+Stack : Raspberry Pi + MySQL + PHP + Html + CSS + Javascript
+Statut : En développement (site web | capteurs | montage électrique)
+Équipe : 4 développeurs STI2D
+
+⭐ 4 stars • 📁 Public
 
 Explication
 -----------
