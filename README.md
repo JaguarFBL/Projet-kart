@@ -26,9 +26,12 @@ Projet-kart/<br>
 ## Mathys : Modélisation non
 ## Noah : Branchement<br>
 <br>
-![GitHub last commit](https://img.shields.io/github/last-commit/JaguarFBL/Projet-kart)<br>
-![GitHub stars](https://img.shields.io/github/stars/JaguarFBL/Projet-kart)<br>
-![License](https://img.shields.io/badge/license-MIT-blue.svg)<br>
+
+![GitHub last commit](https://img.shields.io/github/last-commit/JaguarFBL/Projet-kart)
+
+![GitHub stars](https://img.shields.io/github/stars/JaguarFBL/Projet-kart)
+
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
 
 ![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)
 <br>
