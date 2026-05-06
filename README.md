@@ -26,6 +26,12 @@ Projet-kart/<br>
 ## Mathys : Modélisation non
 ## Noah : Branchement<br>
 <br>
+![GitHub last commit](https://img.shields.io/github/last-commit/JaguarFBL/Projet-kart)
+![GitHub stars](https://img.shields.io/github/stars/JaguarFBL/Projet-kart)
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
+![Python 3.11](https://img.shields.io/badge/python-3.11-green.svg)
+![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)
+<br>
 --A FAIRE--
 <br>
 -les valeurs des tours doivent être prises depuis la BBD<br>
