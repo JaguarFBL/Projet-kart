@@ -46,7 +46,7 @@ Illustrations / screens :
 
 <br>
 
-## 👥 Auteurs <br>
+##  Auteurs <br>
 
 - [@JaguarFBL](https://github.com/JaguarFBL) -> test
 - [@Linklink33](https://github.com/linklink33) -> Branchement
