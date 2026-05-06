@@ -16,8 +16,8 @@ Explication
 |  | 📁 Loevan/ | 📄 explication espace perso.md |
 |  | 📁 Mathys/ | 📄 explication espace perso.md |
 |  | 📁 Noah/ | 📄 explication espace perso.md |
-|  | 📁 Documents/ | 📄 explication doc commun.md |
-|  | 📁 projet-kart/ | 📄 explication dossier source.md |
+|  | 📁 Documents/ | 📄 Doc des outils utilisé et du projet |
+|  | 📁 projet-kart/ | 📄 Fichiers du projet concret |
 |  | 📄 explication du concept.md |  |
 
 <br>
