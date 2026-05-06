@@ -20,11 +20,11 @@ Explication
 |  | 📁 projet-kart/ | 📄 explication dossier source.md |
 |  | 📄 explication du concept.md |  |
 
-## Louan : test chef
-## Loevan : Radio
-## Mathys : Modélisation non
-## Noah : Branchement<br>
 <br>
+
+Liens utiles :
+------------
+
 lien du site : https://jaguarfbl.github.io/Projet-kart/<br>
 site raspberry : http://10.6.10.65/ <br>
 lien MySQL : http://10.6.10.65/phpmyadmin <br>
@@ -34,4 +34,7 @@ API Météo : https://open-meteo.com/en/docs/meteofrance-api?location_mode=csv_c
 
 ## 👥 Auteurs <br>
 
-- [@LouanRoussel](https://github.com/JaguarFBL)
+- [@LouanRoussel](https://github.com/JaguarFBL) -> test
+- [@LouanRoussel](https://github.com/linklink33) -> Branchement
+- [@LouanRoussel](https://github.com/Loevan1) -> Radio
+- [@LouanRoussel](https://github.com/dragonwhite11) -> Modélisation
