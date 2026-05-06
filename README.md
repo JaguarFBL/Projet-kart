@@ -12,9 +12,9 @@ Un projet complet de collecte et visualisation de données en temps réel pour u
 
 Stack : Raspberry Pi + MySQL + PHP + Html + CSS + Javascript
 Statut : En développement (site web | capteurs | montage électrique)
-Équipe : 4 développeurs STI2D
+Équipe : 4 étudiants de Terminal STI2D
 
-⭐ 4 stars • 📁 Public
+• 📁 Public
 
 Explication
 -----------
