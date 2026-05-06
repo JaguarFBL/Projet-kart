@@ -32,6 +32,20 @@ API Météo : https://open-meteo.com/en/docs/meteofrance-api?location_mode=csv_c
 
 <br>
 
+Illustrations / screens :
+------------
+
+## Accuille :
+
+![Accuille](https://jaguarfbl.github.io/Projet-kart/Illustrations/Accueil.PNG)
+
+
+## Sessions :
+
+![Sessions](https://jaguarfbl.github.io/Projet-kart/Illustrations/Accueil.PNG)
+
+<br>
+
 ## 👥 Auteurs <br>
 
 - [@JaguarFBL](https://github.com/JaguarFBL) -> test
