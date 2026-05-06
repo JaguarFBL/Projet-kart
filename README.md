@@ -34,7 +34,7 @@ API Météo : https://open-meteo.com/en/docs/meteofrance-api?location_mode=csv_c
 
 ## 👥 Auteurs <br>
 
-- [@LouanRoussel](https://github.com/JaguarFBL) -> test
-- [@LouanRoussel](https://github.com/linklink33) -> Branchement
-- [@LouanRoussel](https://github.com/Loevan1) -> Radio
-- [@LouanRoussel](https://github.com/dragonwhite11) -> Modélisation
+- [@JaguarFBL](https://github.com/JaguarFBL) -> test
+- [@Linklink33](https://github.com/linklink33) -> Branchement
+- [@Loevan1](https://github.com/Loevan1) -> Radio
+- [@dragonwhite11](https://github.com/dragonwhite11) -> Modélisation
