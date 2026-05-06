@@ -42,7 +42,7 @@ Illustrations / screens :
 
 ## Sessions :
 
-![Sessions](https://jaguarfbl.github.io/Projet-kart/Illustrations/Accueil.PNG)
+![Sessions](https://jaguarfbl.github.io/Projet-kart/Illustrations/Sessions.PNG)
 
 <br>
 
