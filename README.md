@@ -46,7 +46,7 @@ Illustrations / screens :
 
 # Accueil :
 
-![Accuille](https://jaguarfbl.github.io/Projet-kart/Illustrations/Accueil.PNG)
+![Accueil](https://jaguarfbl.github.io/Projet-kart/Illustrations/Accueil.PNG)
 
 
 ## Sessions :
