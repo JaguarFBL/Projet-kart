@@ -36,6 +36,7 @@ Statut : En développement (site web | capteurs | montage électrique)
 ### Liens utiles
 - [Site principal](https://jaguarfbl.github.io/Projet-kart/)
 - [Site Raspberry Pi](http://10.6.10.65/)
+- [Site Télémétrie](http://10.6.10.65/telemetrie.php)
 - [Accès MySQL](http://10.6.10.65/phpmyadmin)
 - [API Météo](https://open-meteo.com/en/docs/meteofrance-api?location_mode=csv_coordinates&bounding_box=-90,-180,90,180&forecast_days=1&hourly=temperature_2m,relative_humidity_2m,rain)
 
