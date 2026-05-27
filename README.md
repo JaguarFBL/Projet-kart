@@ -59,17 +59,34 @@ Il y a aussi le détaille de tour de la session et le profil du pilote ( en bas 
 <br>
 #### Conditions de pratique :
 ![Conditions de pratique](Illustrations/Conditionsdepratique.PNG)
+<br>
+Affichage des conditions extérieur et de la batterie grace au différent capteurs.
+<br>
+Le tableau en bas est a gauche est les prévisons météo de la journée récupérée via API ( regarder les liens utiles ).
+<br>
+<br>
 
 #### App Externe :
 ![App Externe](Illustrations/Appexternes.PNG)
+<br>
+Liens de deux pages suplémentaires du projet
+<br>
+<br>
 
 #### Télémétrie :
 ![Télémétrie](https://jaguarfbl.github.io/Projet-kart/Illustrations/Télémétrie.PNG)
-
-#### Windy :
-![Windy](https://jaguarfbl.github.io/Projet-kart/Illustrations/Windy.PNG)
 <br>
+Affichage en temps réel des données du Kart notamment la batterie, le courant et la température de la batterie du kart élétrique.
+<br>
+<br>
+#### Windy :
 
+![Windy](https://jaguarfbl.github.io/Projet-kart/Illustrations/Windy.PNG)
+
+<br>
+Application web gratuite pour avoir une carte intéractive avec carte satellite et bien plus.
+<br>
+<br>
 ---
 
 ## Utilisation
