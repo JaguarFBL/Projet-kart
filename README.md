@@ -46,7 +46,10 @@ Statut : En développement (site web | capteurs | montage électrique)
 
 #### Accueil :
 ![Accueil](https://jaguarfbl.github.io/Projet-kart/Illustrations/Accueil.PNG)
-
+<br>
+Résumé bref de l'ensemble du site comme l'heure, la tempérture ambiante, les prochains Grand prix et un tableau des meilleurs temps et le podium.
+<br>
+<br>
 #### Sessions :
 ![Sessions](https://jaguarfbl.github.io/Projet-kart/Illustrations/Session.PNG)
 
