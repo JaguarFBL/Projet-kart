@@ -52,7 +52,11 @@ Résumé bref de l'ensemble du site comme l'heure, la tempérture ambiante, les 
 <br>
 #### Sessions :
 ![Sessions](https://jaguarfbl.github.io/Projet-kart/Illustrations/Session.PNG)
-
+<br>
+Page permettant de démarrer l'enregistrement du tour, pour cela appuyer sur "Démarrer" et mettre le nom du pilote.
+Il y a aussi le détaille de tour de la session et le profil du pilote ( en bas à gauche ).
+<br>
+<br>
 #### Conditions de pratique :
 ![Conditions de pratique](Illustrations/Conditionsdepratique.PNG)
 
