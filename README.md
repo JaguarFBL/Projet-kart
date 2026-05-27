@@ -54,8 +54,10 @@ Statut : En développement (site web | capteurs | montage électrique)
 
 #### App Externe :
 
-Télémétrie :
-------------
+#### Télémétrie :
+
+#### Windy :
+
 ---
 
 ### Auteurs
