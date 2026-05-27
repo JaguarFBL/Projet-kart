@@ -50,6 +50,11 @@ Statut : En développement (site web | capteurs | montage électrique)
 #### Sessions :
 ![Sessions](https://jaguarfbl.github.io/Projet-kart/Illustrations/Session.PNG)
 
+#### Conditions de pratique :
+
+#### App Externe :
+
+##Télémétrie :
 ---
 
 ### Auteurs
@@ -58,3 +63,5 @@ Statut : En développement (site web | capteurs | montage électrique)
 - [@Loevan1](https://github.com/Loevan1) → Radio
 - [@dragonwhite11](https://github.com/dragonwhite11) → Modélisation
 
+------MODE D'EMPLOI------
+<br>
