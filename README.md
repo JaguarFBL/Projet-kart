@@ -39,7 +39,7 @@ Statut : En développement (site web | capteurs | montage électrique)
 - [Site Télémétrie](http://10.6.10.65/telemetrie.php)
 - [Accès MySQL](http://10.6.10.65/phpmyadmin) --> identifiant: root et code: poteau 
 - [API Météo](https://open-meteo.com/en/docs/meteofrance-api?location_mode=csv_coordinates&bounding_box=-90,-180,90,180&forecast_days=1&hourly=temperature_2m,relative_humidity_2m,rain)
-- Les codes raspberry sont poteau tout le temps
+- Les codes raspberry sont "poteau" tout le temps
 
 
 ---
