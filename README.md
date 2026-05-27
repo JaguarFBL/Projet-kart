@@ -57,6 +57,11 @@ Statut : En développement (site web | capteurs | montage électrique)
 #### Télémétrie :
 
 #### Windy :
+<br>
+
+---
+
+## Utilisation
 
 ---
 
@@ -66,5 +71,4 @@ Statut : En développement (site web | capteurs | montage électrique)
 - [@Loevan1](https://github.com/Loevan1) → Radio
 - [@dragonwhite11](https://github.com/dragonwhite11) → Modélisation
 
-------MODE D'EMPLOI------
-<br>
+
