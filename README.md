@@ -51,7 +51,7 @@ Statut : En développement (site web | capteurs | montage électrique)
 ![Sessions](https://jaguarfbl.github.io/Projet-kart/Illustrations/Session.PNG)
 
 #### Conditions de pratique :
-![Conditions de pratique](https://jaguarfbl.github.io/Projet-kart/Illustrations/Conditionsdepratique.PNG)
+![Conditions de pratique](Illustrations/Conditionsdepratique.PNG)
 
 #### App Externe :
 ![App Externe](Illustrations/Appexternes.PNG)
