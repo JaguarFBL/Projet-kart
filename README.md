@@ -51,15 +51,16 @@ Statut : En développement (site web | capteurs | montage électrique)
 ![Sessions](https://jaguarfbl.github.io/Projet-kart/Illustrations/Session.PNG)
 
 #### Conditions de pratique :
-![Sessions](https://jaguarfbl.github.io/Projet-kart/Illustrations/Conditionsdepratique.PNG)
+![Conditions de pratique](https://jaguarfbl.github.io/Projet-kart/Illustrations/Conditionsdepratique.PNG)
 
 #### App Externe :
-![Sessions](https://jaguarfbl.github.io/Projet-kart/Illustrations/Session.PNG)
+![App Externe](https://jaguarfbl.github.io/Projet-kart/Illustrations/Appexternes.PNG)
 
 #### Télémétrie :
-![Sessions](https://jaguarfbl.github.io/Projet-kart/Illustrations/Session.PNG)
+![Télémétrie](https://jaguarfbl.github.io/Projet-kart/Illustrations/Télémétrie.PNG)
 
 #### Windy :
+![Windy](https://jaguarfbl.github.io/Projet-kart/Illustrations/Windy.PNG)
 <br>
 
 ---
