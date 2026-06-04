@@ -22,9 +22,9 @@ Statut : En développement (site web | capteurs | montage électrique)
 |----------------|---------------|----------------------------------|-------------------------------------------------------------------------------------------------|
 | 📁 Projet-kart/   |               |                                  | Racine du projet, point d'entrée du dépôt.                                                      |
 |                | 📁 Louan/     | README.md, fichiers divers       | Espace personnel de Louan : docs ou éléments propres à Louan.                                   |
-|                | 📁 Loevan/    | README.md, fichiers divers       | Espace personnel de Loevan : docs ou éléments propres à Loevan.                                 |
-|                | 📁 Mathys/    | README.md, fichiers divers       | Espace personnel de Mathys : docs ou éléments propres à Mathys.                                 |
-|                | 📁 Noah/      | README.md, fichiers divers       | Espace personnel de Noah : docs ou éléments propres à Noah.                                     |
+|                | 📁 Loevan/    | README.md, fichiers divers       | Espace personnel de Loevan : docs et code des serveurs + différents capteurs.                                 |
+|                | 📁 Mathys/    | README.md, fichiers divers       | Espace personnel de Mathys : docs et éléments panneau solaire.                                 |
+|                | 📁 Noah/      | README.md, fichiers divers       | Espace personnel de Noah : docs et code du site web (PH, HTML, CSS, Javascript,....).                                     |
 |                | 📁 Documents/ | README.md, docs projets         | Documentation centrale : description outils, comptes-rendus, notes, docs communs, liens utiles. |
 |                | 📁 Illustrations/ | images, captures d’écran        | Illustrations du projet : schémas, screenshots, visuels sur le projet ou son site.              |
 |                | 📁 Projet-Kart/ | fichiers du projet concret      | Code source (PHP, JS, HTML, CSS) servi par le Raspberry Pi, scripts métier, etc.                |
