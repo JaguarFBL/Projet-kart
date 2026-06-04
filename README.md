@@ -93,7 +93,9 @@ Application web gratuite pour avoir une carte intéractive avec carte satellite 
 ---
 
 ## Utilisation
-
+- Brancher tout les appareils ( Raspberry, Panneau solaire, Arduino pour Ultrason et les ESP32 )
+- Démarrer les fichiers serveurs dans le fichier Loevan
+- Ouvrir page web
 
 
 ---
